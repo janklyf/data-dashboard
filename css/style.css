@@ -1,0 +1,216 @@
+/* 数据看板自定义样式 */
+
+/* 数据块基础样式 */
+.block {
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 数据块标题 */
+.block-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+/* 数据块内容 */
+.block-content {
+    font-size: 0.95rem;
+    color: #495057;
+    flex-grow: 1;
+    word-wrap: break-word;
+}
+
+/* 数据块尺寸样式 */
+
+/* 小尺寸 */
+.block-size-small {
+    min-height: 120px;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+.block-size-small .block-title {
+    font-size: 1.1rem;
+}
+
+.block-size-small .block-content {
+    font-size: 0.85rem;
+}
+
+/* 中尺寸 */
+.block-size-medium {
+    min-height: 200px;
+    padding: 25px;
+    font-size: 1rem;
+}
+
+.block-size-medium .block-title {
+    font-size: 1.3rem;
+}
+
+.block-size-medium .block-content {
+    font-size: 0.95rem;
+}
+
+/* 大尺寸 */
+.block-size-large {
+    min-height: 300px;
+    padding: 35px;
+    font-size: 1.1rem;
+}
+
+.block-size-large .block-title {
+    font-size: 1.5rem;
+}
+
+.block-size-large .block-content {
+    font-size: 1rem;
+}
+
+/* 数据块颜色样式 */
+
+/* 灰色 */
+.block-color-gray {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+}
+
+.block-color-gray .block-title,
+.block-color-gray .block-content {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* 蓝色 */
+.block-color-blue {
+    background: linear-gradient(135deg, #4dabf7 0%, #1971c2 100%);
+    color: white;
+}
+
+.block-color-blue .block-title,
+.block-color-blue .block-content {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* 绿色 */
+.block-color-green {
+    background: linear-gradient(135deg, #69db7c 0%, #2f9e44 100%);
+    color: white;
+}
+
+.block-color-green .block-title,
+.block-color-green .block-content {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* 黄色 */
+.block-color-yellow {
+    background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+    color: #343a40;
+}
+
+.block-color-yellow .block-title,
+.block-color-yellow .block-content {
+    color: rgba(52, 58, 64, 0.95);
+}
+
+/* 红色 */
+.block-color-red {
+    background: linear-gradient(135deg, #ffa8a8 0%, #fa5252 100%);
+    color: white;
+}
+
+.block-color-red .block-title,
+.block-color-red .block-content {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* 数据块操作按钮 */
+.block-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.block-btn {
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.block-btn:hover {
+    transform: scale(1.05);
+}
+
+.block-btn-edit {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+}
+
+.block-btn-edit:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.block-btn-delete {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+}
+
+.block-btn-delete:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 数据块元信息 */
+.block-meta {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .block-size-small {
+        min-height: 100px;
+        padding: 12px;
+    }
+
+    .block-size-medium {
+        min-height: 180px;
+        padding: 20px;
+    }
+
+    .block-size-large {
+        min-height: 250px;
+        padding: 30px;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.block {
+    animation: fadeIn 0.3s ease-in-out;
+}
