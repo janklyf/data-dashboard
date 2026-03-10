@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // 加载分组列表
 async function loadGroups() {
     try {
-        const response = await fetch('api.php/groups');
+        const response = await fetch('data.php');
         const result = await response.json();
 
         if (result.success) {
-            groups = result.data;
+            groups = result.groups;
             updateGroupFilter();
             updateGroupSelect();
         } else {
@@ -40,11 +40,11 @@ async function loadGroups() {
 // 加载数据块列表
 async function loadBlocks() {
     try {
-        const response = await fetch('api.php/blocks');
+        const response = await fetch('data.php');
         const result = await response.json();
 
         if (result.success) {
-            blocks = result.data;
+            blocks = result.blocks;
             renderBlocks();
         } else {
             alert('加载数据块失败: ' + result.error);
@@ -81,7 +81,20 @@ function updateGroupSelect() {
     });
 }
 
-// 渲染数据块
+// 按分组分组数据块
+function groupBlocksByGroup(blocks) {
+    const grouped = {};
+    blocks.forEach(block => {
+        const groupName = block.group_name || '未分组';
+        if (!grouped[groupName]) {
+            grouped[groupName] = [];
+        }
+        grouped[groupName].push(block);
+    });
+    return grouped;
+}
+
+// 渲染数据块（按分组显示）
 function renderBlocks(filteredBlocks = null) {
     const container = document.getElementById('blocksContainer');
     const emptyState = document.getElementById('emptyState');
@@ -96,34 +109,65 @@ function renderBlocks(filteredBlocks = null) {
     emptyState.classList.add('d-none');
     container.innerHTML = '';
 
-    blocksToRender.forEach(block => {
-        const col = document.createElement('div');
-        col.className = `col-12 col-md-6 col-lg-4 col-xl-3`;
+    // 按分组分组
+    const groupedBlocks = groupBlocksByGroup(blocksToRender);
 
-        const sizeClass = `block-size-${block.size}`;
-        const colorClass = `block-color-${block.color}`;
+    // 渲染分组卡片
+    Object.keys(groupedBlocks).sort().forEach(groupName => {
+        const groupBlocks = groupedBlocks[groupName];
 
-        col.innerHTML = `
-            <div class="block ${sizeClass} ${colorClass}">
-                <div>
-                    <h5 class="block-title">${escapeHtml(block.title)}</h5>
-                    <p class="block-content">${escapeHtml(block.content)}</p>
+        // 获取分组颜色（如果有）
+        let groupColor = 'light';
+        const group = groups.find(g => g.name === groupName);
+        if (group) {
+            groupColor = group.color || 'light';
+        }
+
+        // 创建分组卡片
+        const groupCard = document.createElement('div');
+        groupCard.className = 'group-card mb-4';
+        groupCard.innerHTML = `
+            <div class="group-card-header bg-${groupColor} text-white p-3 rounded-top">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-collection me-2"></i>${escapeHtml(groupName)}
+                    </h4>
+                    <span class="badge bg-white text-${groupColor}">${groupBlocks.length} 个数据块</span>
                 </div>
-                <div class="block-meta">
-                    尺寸: ${getSizeName(block.size)} | 颜色: ${getColorName(block.color)}
-                </div>
-                <div class="block-actions">
-                    <button class="btn btn-sm btn-light block-btn block-btn-edit" onclick="editBlock(${block.id})">
-                        编辑
-                    </button>
-                    <button class="btn btn-sm btn-light block-btn block-btn-delete" onclick="deleteBlock(${block.id})">
-                        删除
-                    </button>
+            </div>
+            <div class="group-card-body p-3">
+                <div class="row g-3">
+                    ${groupBlocks.map(block => {
+                        const sizeClass = `block-size-${block.size}`;
+                        const colorClass = `block-color-${block.color}`;
+                        return `
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                <div class="block ${sizeClass} ${colorClass}">
+                                    <div>
+                                        <h6 class="block-title">${escapeHtml(block.title)}</h6>
+                                        <p class="block-content">${escapeHtml(block.content)}</p>
+                                    </div>
+                                    <div class="block-meta small text-muted mb-2">
+                                        <i class="bi bi-grid"></i> ${getSizeName(block.size)} | 
+                                        <i class="bi bi-palette"></i> ${getColorName(block.color)}
+                                    </div>
+                                    <div class="block-actions d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-primary flex-grow-1" onclick="editBlock(${block.id})">
+                                            <i class="bi bi-pencil"></i> 编辑
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deleteBlock(${block.id})">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
             </div>
         `;
 
-        container.appendChild(col);
+        container.appendChild(groupCard);
     });
 }
 

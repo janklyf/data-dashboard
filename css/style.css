@@ -3,8 +3,8 @@
 /* 数据块基础样式 */
 .block {
     border-radius: 8px;
-    padding: 20px;
-    min-height: 100px;
+    padding: 12px;
+    min-height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -36,47 +36,47 @@
 
 /* 小尺寸 */
 .block-size-small {
-    min-height: 120px;
-    padding: 15px;
-    font-size: 0.9rem;
+    min-height: 55px;
+    padding: 8px;
+    font-size: 0.8rem;
 }
 
 .block-size-small .block-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
 }
 
 .block-size-small .block-content {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 /* 中尺寸 */
 .block-size-medium {
-    min-height: 200px;
-    padding: 25px;
-    font-size: 1rem;
+    min-height: 95px;
+    padding: 12px;
+    font-size: 0.85rem;
 }
 
 .block-size-medium .block-title {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
 }
 
 .block-size-medium .block-content {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
 }
 
 /* 大尺寸 */
 .block-size-large {
-    min-height: 300px;
-    padding: 35px;
-    font-size: 1.1rem;
+    min-height: 130px;
+    padding: 18px;
+    font-size: 0.9rem;
 }
 
 .block-size-large .block-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .block-size-large .block-content {
-    font-size: 1rem;
+    font-size: 0.85rem;
 }
 
 /* 数据块颜色样式 */
@@ -184,18 +184,18 @@
 /* 响应式调整 */
 @media (max-width: 768px) {
     .block-size-small {
-        min-height: 100px;
-        padding: 12px;
+        min-height: 50px;
+        padding: 6px;
     }
 
     .block-size-medium {
-        min-height: 180px;
-        padding: 20px;
+        min-height: 85px;
+        padding: 10px;
     }
 
     .block-size-large {
-        min-height: 250px;
-        padding: 30px;
+        min-height: 115px;
+        padding: 15px;
     }
 }
 
@@ -213,4 +213,113 @@
 
 .block {
     animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 分组卡片样式 */
+.group-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.group-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+.group-card-header.bg-gray {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+}
+
+.group-card-header.bg-blue {
+    background: linear-gradient(135deg, #4dabf7 0%, #1971c2 100%);
+}
+
+.group-card-header.bg-green {
+    background: linear-gradient(135deg, #69db7c 0%, #2f9e44 100%);
+}
+
+.group-card-header.bg-yellow {
+    background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+}
+
+.group-card-header.bg-red {
+    background: linear-gradient(135deg, #ffa8a8 0%, #fa5252 100%);
+}
+
+.group-card-header .badge {
+    font-weight: 500;
+}
+
+.group-card-body {
+    background: white;
+}
+
+/* 分组卡片动画 */
+.group-card {
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 数据块按钮样式优化 */
+.block-actions .btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.block-actions .btn-outline-primary {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.block-actions .btn-outline-primary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.block-actions .btn-outline-danger {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.block-actions .btn-outline-danger:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+    .group-card-header h4 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .group-card-header {
+        padding: 15px;
+    }
+
+    .group-card-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .group-card-body {
+        padding: 15px;
+    }
+
+    .block-actions {
+        flex-direction: column;
+    }
 }
